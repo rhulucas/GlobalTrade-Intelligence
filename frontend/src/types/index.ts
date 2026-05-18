@@ -76,3 +76,13 @@ export interface DashboardSummary {
 }
 
 export type TimeRange = '1W' | '1M' | '3M' | '6M' | '1Y';
+
+export type PageKey =
+  | 'dashboard'
+  | 'commodities'
+  | 'shipping'
+  | 'macro'
+  | 'news'
+  | 'ai-brief'
+  | 'scenario'
+  | 'data-center';

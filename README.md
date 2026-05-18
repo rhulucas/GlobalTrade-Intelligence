@@ -1,6 +1,8 @@
 # GlobalTrade Intelligence
 
-GlobalTrade Intelligence is a full-stack global trade and commodity market intelligence platform. It uses public and free data sources to monitor commodity prices, macroeconomic indicators, shipping route risks, geopolitical news, and AI-assisted market signals.
+GlobalTrade Intelligence is a full-stack global trade and commodity market intelligence platform. It uses public and free-tier data sources to monitor commodity prices, macroeconomic indicators, shipping route risks, geopolitical news, and AI-assisted market signals.
+
+The current demo is organized as a multi-page web application with top navigation rather than a left sidebar. It is designed for analysts, operations teams, procurement teams, and business users who need one shared view of changing market and trade conditions.
 
 ## Project Goals
 
@@ -9,6 +11,17 @@ GlobalTrade Intelligence is a full-stack global trade and commodity market intel
 - Generate market signals using technical indicators and commodity-specific risk context.
 - Display geopolitical and trade-related news in one operational dashboard.
 - Support future AI features such as daily market briefs, route risk explanations, and scenario analysis.
+
+## Application Pages
+
+- Dashboard: executive overview of commodity prices, market signals, shipping risk, rankings, and news.
+- Commodities: live commodity cards, price history charts, signal details, and a monitor table.
+- Shipping Risk: map-based route risk monitoring with chokepoint watchlists and planning notes.
+- Macro: macro and trade pressure indicators for energy, freight, food inputs, and policy expansion.
+- News: categorized geopolitical and trade news with sentiment summaries.
+- AI Brief: structured decision brief generated from the current market, route, and news context.
+- Scenario: scenario planning for trade disruptions, energy price shocks, and export restrictions.
+- Data Center: shared table view for prices, signals, shipping routes, news, and beneficiary rankings, with CSV export.
 
 ## Tech Stack
 
@@ -30,6 +43,8 @@ The project is designed to use public or free-tier data sources:
 - NewsAPI for trade and geopolitical news
 
 API keys should be stored locally in `backend/.env` and must not be committed to GitHub.
+
+AISStream is not included in the current build. It can be added later if real-time vessel tracking becomes necessary.
 
 ## Local Development
 
@@ -67,6 +82,20 @@ FRED_API_KEY=your_fred_api_key
 ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key
 NEWS_API_KEY=your_news_api_key
 ```
+
+Optional backend settings:
+
+```env
+PORT=3001
+NODE_ENV=development
+```
+
+## Current Status
+
+- Multi-page frontend shell is implemented.
+- Existing public/free API integrations are wired through the backend.
+- Frontend and backend TypeScript builds pass locally.
+- The data is intended for demo, portfolio, and research workflows, not production trading.
 
 ## Disclaimer
 
