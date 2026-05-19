@@ -40,7 +40,7 @@ export default function App() {
       onPageChange={setActivePage}
       onRefresh={refetch}
     >
-      {activePage === 'dashboard' && <Dashboard data={data} />}
+      {activePage === 'dashboard' && <Dashboard data={data} onNavigate={setActivePage} />}
       {activePage === 'commodities' && <Commodities data={data} />}
       {activePage === 'shipping' && <ShippingRisk data={data} />}
       {activePage === 'macro' && <Macro data={data} />}

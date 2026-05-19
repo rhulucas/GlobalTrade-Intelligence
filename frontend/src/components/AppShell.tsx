@@ -55,7 +55,7 @@ export default function AppShell({
                 </div>
                 <div>
                   <div className="text-lg font-bold tracking-tight">GlobalTrade Intelligence</div>
-                  <div className="text-xs font-medium uppercase tracking-[0.3em] text-indigo-300">Live market risk platform</div>
+                  <div className="text-xs font-medium uppercase tracking-[0.3em] text-indigo-300">Trade risk and AI decision support</div>
                 </div>
               </button>
 

@@ -1,19 +1,20 @@
 import { useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
-import { AlertTriangle, BarChart2, Globe2, Newspaper, Ship } from 'lucide-react';
+import { AlertTriangle, BarChart2, Brain, Database, Globe2, Newspaper, Ship, TrendingUp } from 'lucide-react';
 import CommodityCard from '../components/CommodityCard';
 import PriceChart from '../components/PriceChart';
 import ShippingMap from '../components/ShippingMap';
 import NewsPanel from '../components/NewsPanel';
 import BeneficiaryRankingPanel from '../components/BeneficiaryRanking';
 import SignalDetail from '../components/SignalDetail';
-import type { DashboardSummary } from '../types';
+import type { DashboardSummary, PageKey } from '../types';
 
 interface Props {
   data: DashboardSummary | null;
+  onNavigate: (page: PageKey) => void;
 }
 
-export default function Dashboard({ data }: Props) {
+export default function Dashboard({ data, onNavigate }: Props) {
   const [selectedSymbol, setSelectedSymbol] = useState<string>('BRENT');
 
   const selectedPrice = data?.prices.find((p) => p.symbol === selectedSymbol);
@@ -28,12 +29,32 @@ export default function Dashboard({ data }: Props) {
           <div>
             <div className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.35em] text-indigo-300">
               <Globe2 size={16} />
-              Executive Monitor
+              Global trade intelligence platform
             </div>
-            <h1 className="text-3xl font-bold tracking-tight text-white">Global trade risk dashboard</h1>
-            <p className="mt-2 max-w-3xl text-sm leading-6 text-slate-400">
-              Live commodity prices, shipping chokepoints, macro signals, and news context in one operating view.
+            <h1 className="text-3xl font-bold tracking-tight text-white">
+              Turn commodity, shipping, macro, and news data into business decisions.
+            </h1>
+            <p className="mt-3 max-w-4xl text-sm leading-6 text-slate-400">
+              This demo helps trade, procurement, finance, and operations teams monitor market changes,
+              understand the business impact, and prepare AI-assisted decisions from public data sources.
             </p>
+            <div className="mt-4 grid max-w-4xl grid-cols-1 gap-3 md:grid-cols-3">
+              <IntroCard
+                icon={TrendingUp}
+                title="Monitor live inputs"
+                text="Track Brent, natural gas, wheat, aluminum, freight, and market-moving news."
+              />
+              <IntroCard
+                icon={AlertTriangle}
+                title="Explain risk impact"
+                text="Connect price movement and route risk to sourcing, quotes, margin, and delivery plans."
+              />
+              <IntroCard
+                icon={Brain}
+                title="Generate AI brief"
+                text="Summarize the current situation into actions that business teams can review."
+              />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
             <Metric label="Commodities" value={data?.prices.length ?? 0} icon={BarChart2} />
@@ -42,6 +63,33 @@ export default function Dashboard({ data }: Props) {
             <Metric label="Risk Alerts" value={highRiskCount + bearishCount} icon={AlertTriangle} tone="red" />
           </div>
         </div>
+      </section>
+
+      <section className="grid grid-cols-1 gap-3 lg:grid-cols-4">
+        <StartButton
+          icon={BarChart2}
+          label="Review commodity signals"
+          description="See prices, charts, and signal reasoning."
+          onClick={() => onNavigate('commodities')}
+        />
+        <StartButton
+          icon={Ship}
+          label="Check shipping risk"
+          description="Open route risk and chokepoint status."
+          onClick={() => onNavigate('shipping')}
+        />
+        <StartButton
+          icon={Brain}
+          label="Read AI brief"
+          description="Get a structured market decision summary."
+          onClick={() => onNavigate('ai-brief')}
+        />
+        <StartButton
+          icon={Database}
+          label="Open data center"
+          description="Inspect the data tables behind the demo."
+          onClick={() => onNavigate('data-center')}
+        />
       </section>
 
       <section>
@@ -83,6 +131,44 @@ export default function Dashboard({ data }: Props) {
         </div>
       </section>
     </div>
+  );
+}
+
+function IntroCard({ icon: Icon, title, text }: { icon: LucideIcon; title: string; text: string }) {
+  return (
+    <div className="rounded-xl border border-slate-800 bg-slate-950/70 p-3">
+      <div className="mb-2 inline-flex rounded-lg bg-indigo-500/10 p-2 text-indigo-300">
+        <Icon size={16} />
+      </div>
+      <div className="text-sm font-semibold text-slate-100">{title}</div>
+      <p className="mt-1 text-xs leading-5 text-slate-500">{text}</p>
+    </div>
+  );
+}
+
+function StartButton({
+  icon: Icon,
+  label,
+  description,
+  onClick,
+}: {
+  icon: LucideIcon;
+  label: string;
+  description: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="rounded-xl border border-slate-800 bg-slate-900 p-4 text-left transition hover:border-indigo-500/50 hover:bg-slate-800"
+    >
+      <div className="mb-3 inline-flex rounded-lg bg-indigo-500/10 p-2 text-indigo-300">
+        <Icon size={18} />
+      </div>
+      <div className="font-semibold text-slate-100">{label}</div>
+      <p className="mt-1 text-sm leading-5 text-slate-500">{description}</p>
+    </button>
   );
 }
 
